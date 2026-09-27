@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.DS_Store
+.env*
+!.env.example
+.qa/
+*.log
+
+# Local research, editing instructions and capture evidence
+AGENTS.md
+CONTENT_EVIDENCE.md
+CAPTURE_REPORT.md
+design-qa.md
+docs/
