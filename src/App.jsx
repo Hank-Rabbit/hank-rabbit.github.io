@@ -5,7 +5,7 @@ import { Resume } from './components/Resume';
 import { ProductScreens, ProjectPreview } from './components/ProductScreens';
 const Architecture = lazy(() => import('./components/Architecture'));
 const asset = name => `${import.meta.env.BASE_URL}assets/${name}`;
-const resume = asset('Hanke-Zhang-CV.pdf');
+const resume = `${asset('Hanke-Zhang-CV.pdf')}?v=20260927-links`;
 const linkedin = 'https://www.linkedin.com/in/hanke-z-939b61301/';
 function useRoute(){
   const [hash,setHash]=useState(window.location.hash || '#/');
