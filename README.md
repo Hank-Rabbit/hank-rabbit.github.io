@@ -7,6 +7,7 @@ Website: https://hank-rabbit.github.io/
 ## Featured work
 
 - **GuardSync** — public incident reporting, management dashboard and staff mobile workflows. Independent Web/Mobile development, with contributions to the Python backend.
+- **Auli** — Chinese-language community app for Canberra: posts, events, carpools, local shops and messaging. Product design and full-stack development; in development, preview builds only.
 - **Stride** — shared mobility, map discovery, vehicle communication and Stripe integration. Independent product design and full-stack development.
 - **Voice Learning Platform** — conversational learning activities, learner history and agent administration. Independent product design and full-stack development.
 
@@ -35,8 +36,11 @@ GitHub Pages uses the GitHub Actions source. Pushing to `main` runs `.github/wor
 - `src/projects.js`: project ownership, architecture and engineering challenges.
 - `src/components/ProductScreens.jsx`: product galleries.
 - `src/components/VoiceAgentStory.jsx`: voice activities and session pipeline.
-- `src/linear.css`: layout and responsive styling.
+- `src/components/WorkStack.jsx`: homepage project cards and cover visuals.
+- `src/components/Aurora.jsx`, `src/lib/motion.jsx`: hero shader and motion helpers (all respect `prefers-reduced-motion`).
+- `src/site.css`: design tokens, layout and responsive styling.
 - `public/assets`: images, standalone diagrams and downloadable CV.
+- `resume/Hanke-Zhang-CV.html`: source of the downloadable CV. Regenerate the PDF with `npm run resume` (needs Google Chrome).
 
 The galleries combine original local/test-environment captures with source-informed generated interface visuals. Generated GuardSync Mobile and Stride detail/wallet visuals use sample data and are identified in image descriptions; they are not device captures. Homepage artworks are presentation imagery. The Samira device image is an original product asset.
 

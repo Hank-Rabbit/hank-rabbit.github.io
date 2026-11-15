@@ -12,3 +12,6 @@ CONTENT_EVIDENCE.md
 CAPTURE_REPORT.md
 design-qa.md
 docs/
+
+# Local preview launcher
+.claude/

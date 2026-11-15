@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hanke Zhang — CV</title>
+<style>
+  @page { size: A4; margin: 15mm 17mm 17mm; @bottom-right { content: "Hanke Zhang  |  " counter(page); font: 9pt "Times New Roman", Times, serif; color: #222; } }
+  * { box-sizing: border-box; }
+  html { font: 10.6pt/1.32 "Times New Roman", Times, serif; color: #000; }
+  body { margin: 0; }
+  a { color: #2b4a7a; }
+  h1 { font-size: 23pt; text-align: center; margin: 0 0 3pt; }
+  .tagline { text-align: center; font-style: italic; font-size: 13pt; letter-spacing: 0.04em; margin: 0 0 5pt; }
+  .contact { text-align: center; margin: 0; line-height: 1.45; }
+  .contact span { margin: 0 5pt; }
+  h2 { font-size: 11.5pt; text-transform: uppercase; margin: 12pt 0 6pt; padding-bottom: 2pt; border-bottom: 1px solid #000; break-after: avoid; }
+  p { margin: 0; }
+  .job { display: flex; justify-content: space-between; align-items: baseline; margin-top: 7pt; break-after: avoid; }
+  .job b { font-size: 11.3pt; }
+  .role { font-style: italic; margin-bottom: 5pt; break-after: avoid; }
+  h3 { font-size: 10.6pt; margin: 6pt 0 2pt; break-after: avoid; }
+  .meta { margin: 0; break-after: avoid; }
+  .meta b { margin-right: 4pt; }
+  ul { margin: 4pt 0 0; padding-left: 13pt; }
+  li { margin: 0 0 1pt; padding-left: 1pt; break-inside: avoid; }
+  .skills p { margin-bottom: 2.5pt; }
+  .skills b { margin-right: 4pt; }
+  .block { break-inside: avoid; }
+</style>
+</head>
+<body>
+<h1>Hanke Zhang</h1>
+<p class="tagline">Full Stack Software Engineer | Web, Mobile &amp; AI Applications</p>
+<p class="contact">zhabghank1997@gmail.com <span>|</span> 0413 935 996 <span>|</span> Canberra, Australia <span>|</span> Full Australian work rights (491 visa)</p>
+<p class="contact"><a href="https://hank-rabbit.github.io/">Portfolio: hank-rabbit.github.io</a> <span>|</span> <a href="https://github.com/Hank-Rabbit">GitHub: Hank-Rabbit</a> <span>|</span> <a href="https://www.linkedin.com/in/hanke-z-939b61301/">linkedin.com/in/hanke-z-939b61301</a></p>
+
+<h2>Profile</h2>
+<p>Software engineer with 5+ years of experience building web, mobile and data-driven business applications. I take products from design through frontend, backend and release, working in React, Next.js, React Native, Python/FastAPI and PostgreSQL. Over the past two years I have been the sole web and mobile developer on four products spanning security operations, shared mobility, voice-based language learning and a community platform, including a realtime voice agent (STT / LLM / TTS) and Stripe payments. Earlier, I led front-end delivery for a data-services company.</p>
+
+<h2>Professional Experience</h2>
+
+<div class="job"><b>TriVector AI</b><span>Mar 2025 - Present &nbsp;|&nbsp; Melbourne, Australia</span></div>
+<p class="role">Web and Full-Stack Developer</p>
+
+<h3>GuardSync | Security operations platform</h3>
+<p class="meta"><b>Stack</b> Next.js | TypeScript | React Native / Expo | Prisma | Python / FastAPI</p>
+<p class="meta"><b>Ownership</b> Sole Web and Mobile developer; contributor to Python APIs and business logic</p>
+<ul>
+  <li>Independently built the Next.js management application, public QR incident-reporting web flow and React Native mobile app, connecting public reports with staff triage, incident details, comments and status updates. The mobile app is in final closed testing.</li>
+  <li>Implemented mobile push-notification handling with group-scoped device registration, token refresh and sign-out cleanup. Deferred incident navigation until authentication and group selection were ready, supporting app launches from notifications and unread badge synchronisation.</li>
+  <li>Built authenticated device-registration APIs that derive guard and group identity on the server and validate group membership, keeping notification registration tied to the correct operational team.</li>
+  <li>Contributed business logic and REST endpoints to the existing Python/FastAPI backend and integrated the web and mobile clients with incident-processing services, working across reporting, AI processing and notification flows.</li>
+</ul>
+
+<h3>Voice learning platform | Full-stack design and development</h3>
+<p class="meta"><b>Stack</b> Next.js | TypeScript | Supabase / PostgreSQL | Python | LiveKit Agents</p>
+<p class="meta"><b>Ownership</b> Sole developer across product design, dashboard, backend and voice agent</p>
+<ul>
+  <li>Independently designed and built a Next.js/Supabase dashboard and Python/LiveKit voice agent, connecting learner profiles and session history with conversational learning activities and configurable agent behaviour.</li>
+  <li>Built the realtime speech pipeline (VAD, speech-to-text, LLM with tools, text-to-speech) and its learning activities (listening, two-voice dialogue, pronunciation assessment, role-play and quick-fire), each with dedicated session state. Added TTS retry handling with automated tests for timeouts and fallback behaviour.</li>
+  <li>Implemented server-side ownership checks for learner records, role-based administration and draft-to-published configuration workflows with version-conflict detection. Added Shopify webhook signature verification and event-ordering checks so older membership updates cannot replace newer data.</li>
+</ul>
+
+<div class="job"><b>Stride</b><span>Jul 2025 - Mar 2026 &nbsp;|&nbsp; Canberra, Australia</span></div>
+<p class="role">Contract Developer | Full Stack and Mobile</p>
+<p class="meta"><b>Stack</b> React Native / Expo | Python / FastAPI | PostgreSQL / PostGIS | Stripe | Docker | GCP</p>
+<p class="meta"><b>Ownership</b> Sole developer across product design, mobile app and backend services</p>
+<ul>
+  <li>Independently owned product design and full-stack implementation of a shared mobility platform, building the React Native consumer app and Python/FastAPI backend: vehicle discovery on a layered map, camera-based QR scanning, ride views and vehicle lock/unlock.</li>
+  <li>Integrated Stripe PaymentSheet with authenticated backend endpoints for saving payment methods through SetupIntents and initiating top-ups through PaymentIntents, with customer records, ephemeral-key handling and server-side amount validation.</li>
+  <li>Separated customer-facing HTTP APIs from TCP vehicle communication and implemented device-command parsing. Modelled users, scooters, rides and payments in PostgreSQL, with geospatial vehicle data in PostGIS.</li>
+  <li>Implemented ride ownership checks and time-based billing with unit tests for duration limits, fractional durations and fee rounding. Prepared Docker configurations for the API and TCP services and GCP deployment scripts.</li>
+</ul>
+
+<div class="block">
+<div class="job"><b>Waytale Big-data Service</b><span>Mar 2020 - Mar 2024 &nbsp;|&nbsp; Guiyang, China</span></div>
+<p class="role">R&amp;D Deputy Director and Front-End Lead</p>
+<ul>
+  <li>Led frontend development for dashboards, web and mobile applications, combining hands-on delivery with architecture, code quality and stakeholder coordination.</li>
+</ul>
+</div>
+
+<div class="block">
+<h2>Independent Product</h2>
+<div class="job"><b>Auli</b><span>Oct 2026 - Present &nbsp;|&nbsp; Canberra, Australia</span></div>
+<p class="role">Independent Product | Design and Full-Stack Development</p>
+<p class="meta"><b>Stack</b> Expo / React Native | TypeScript | Zod | TanStack Query | Fastify | PostgreSQL / SQLite | EAS Update</p>
+<p class="meta"><b>Ownership</b> Sole designer and developer; in development, distributed as iOS and Android preview builds</p>
+</div>
+<ul>
+  <li>Independently designing and building a Chinese-language community app for Canberra covering neighbourhood posts, events, carpools, local shops and private messaging, with moderation and admin tools.</li>
+  <li>Declared every entity and route once in a shared Zod contract, then built a rule engine that implements it (authentication, permissions, validation, state machines, notifications). The same engine runs inside the app for previews and behind a Fastify + SQLite pilot server.</li>
+  <li>Built a Fastify/PostgreSQL reference API in which event sign-ups and carpool seats are confirmed inside one locked transaction with idempotent constraints, plus an upload pipeline that validates, strips metadata from and re-encodes images.</li>
+  <li>Maintain 60+ automated test files covering rule-engine behaviour, privacy regressions, messaging and shop flows; lint, type checks and tests run before each over-the-air preview release.</li>
+</ul>
+
+<div class="block">
+<h2>Education and Certification</h2>
+<p><b>Bachelor of Information and Communication Technology</b></p>
+<p>Ara Institute of Canterbury &nbsp;|&nbsp; Christchurch, New Zealand &nbsp;|&nbsp; Mar 2021</p>
+<p><b>AWS Certified Machine Learning - Specialty (MLS)</b></p>
+</div>
+
+<div class="block skills">
+<h2>Technical Skills</h2>
+<p><b>Web</b> React, Next.js, TypeScript, JavaScript, HTML, CSS, responsive interfaces</p>
+<p><b>Mobile</b> React Native, Expo, iOS and Android, push notifications, QR scanning, over-the-air updates</p>
+<p><b>Backend and data</b> Python, FastAPI, Node.js, Fastify, REST APIs, PostgreSQL, PostGIS, Prisma, Supabase, SQLite</p>
+<p><b>AI applications</b> LiveKit Agents, speech-to-text, LLM tool calling, text-to-speech, pronunciation assessment</p>
+<p><b>Payments and delivery</b> Stripe PaymentSheet and Intents, Git, Docker, GCP, AWS, automated tests</p>
+</div>
+</body>
+</html>

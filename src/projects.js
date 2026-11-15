@@ -1,4 +1,4 @@
-export const projects = [
+const raw = [
   {
     id: 'guardsync', number: '01', name: 'GuardSync', category: 'SECURITY OPERATIONS',
     subtitle: 'Incident reporting & response',
@@ -111,5 +111,54 @@ export const projects = [
     ],
     maturity:'The codebase includes learning configuration, authenticated history, voice activities, speech fallback tests and signed membership webhooks. The device image is an original product asset. Published usage figures and a production rollout have not been independently verified.',next:'guardsync',
   },
+  {
+    id:'auli',name:'Auli',category:'COMMUNITY PLATFORM',
+    role:'Product design + full-stack development',
+    ownership:'I independently designed and built Auli end to end: the product, the React Native app, the shared contract, the rule engine behind it and the preview delivery pipeline.',
+    fullStack:['Expo / React Native','TypeScript','Expo Router','TanStack Query','Zod contracts','Fastify','PostgreSQL / SQLite','EAS Update'],
+    architecture:{note:'Current development architecture. The mock rule engine and pilot server are pre-production; no cloud resources are deployed yet.',tabs:['Overview','Request flow','Delivery'],nodes:[
+      {id:'app',title:'Mobile app',tech:'Expo / React Native',icon:'mobile',x:0,y:0,detail:'iOS and Android client built with Expo Router, TanStack Query for remote state and FlashList for the two-column feed. Screens call typed routes, never ad-hoc URLs.'},
+      {id:'contract',title:'Shared contract',tech:'Zod entities + routes',icon:'report',x:280,y:0,detail:'One registry declares every entity and route: schema, auth level, owner field, unique keys and state transitions. The app, the rule engine and the generated backend blueprint all read from it.'},
+      {id:'mock',title:'Rule engine',tech:'In-app mock server',icon:'server',x:560,y:0,detail:'Implements the contract with real behaviour: authentication, permissions, validation, state machines, notifications and a scheduler. Every number shown in the app is counted from its records.'},
+      {id:'pilot',title:'Pilot server',tech:'Fastify + SQLite',icon:'database',x:560,y:200,detail:'Hosts the same rule engine behind HTTP with real accounts, invite-based registration, media storage and SQLite persistence, so several phones can share one dataset. It is a candidate under review, not a production service.'},
+      {id:'api',title:'Reference API',tech:'Fastify + PostgreSQL',icon:'server',x:280,y:200,detail:'The first backend: content, comments, participation and media modules on PostgreSQL, with transactional sign-ups and an upload pipeline. It is kept as the behaviour reference while the contract is finalised.'},
+      {id:'ota',title:'Preview delivery',tech:'EAS Update',icon:'connect',x:0,y:200,detail:'JavaScript updates are published to a preview channel and checked against the remote manifest for both platforms. Native dependency changes still require a new binary.'},
+    ],edges:[['app','contract','Typed calls'],['contract','mock','Implements'],['mock','pilot','Same engine'],['contract','api','Behaviour reference'],['ota','app','OTA bundle']],paths:[['app','contract','mock','pilot','api','ota'],['app','contract','mock','pilot'],['ota','app']]},
+    decisions:[
+      {title:'Design the backend by running it as a mock first',summary:'Let a working product decide the schema, not the other way round.',implementation:'Entities and routes are declared once in a shared TypeScript contract using Zod schemas, together with auth levels, ownership fields, unique keys and allowed state transitions. An in-app mock server implements that contract with real rules — sign-in, permissions, validation, state machines and notifications — so the app behaves like it has a backend. A script turns the registry into a backend blueprint document.',tradeoff:'A behaving mock costs more than canned screens and is not a production backend. In return, product decisions are exercised on a phone before any table or migration exists.',contribution:'I designed the mock-first approach and the contract structure, and built the app and the rule engine on top of it.',evidence:'shared/contract/define.ts · shared/contract/registry.ts · mobile/src/mock/server/'},
+      {title:'One rule engine, two transports',summary:'Run the same request handler inside the app and behind HTTP.',implementation:'The mock server exposes a single handle() entry point. In preview builds it runs inside the app, so testers need no tunnel or local API. The pilot server imports the same function, adds real accounts, invite codes and media storage, and persists the same records in SQLite. Business rules are not copied between the two.',tradeoff:'SQLite stores the mock’s JSON records, one generic table per collection; no relational schema has been designed yet. The pilot server is still under review and has not been validated against the app on a device.',contribution:'I designed the pilot path and its integration with the app.',evidence:'mobile/src/mock/server/router.ts · server/src/core.ts · server/src/json-records.ts'},
+      {title:'Confirm sign-ups without overselling seats',summary:'Capacity checks and writes happen inside one locked transaction.',implementation:'Event sign-ups and carpool seat confirmations lock the content row first, then the participant row, and validate, count confirmed places and write in the same transaction. Closing or rescheduling follows the same lock order. Unique constraints make repeated requests idempotent, and expiry is filtered in SQL rather than relying on a timer.',tradeoff:'This behaviour lives in the PostgreSQL reference API. It stays as the reference for the final backend rather than being presented as a deployed service.',contribution:'I implemented the participation model and its API.',evidence:'api/src/participation.ts · docs/ARCHITECTURE.md'},
+      {title:'Treat every upload as untrusted',summary:'Decode, strip, resize and re-encode before an image is stored.',implementation:'Uploads accept JPEG, PNG and WebP only. The server checks that the file really decodes, enforces size and pixel limits, removes EXIF metadata, resizes and re-encodes to WebP. An attachment must belong to its uploader and cannot be bound to a second post; reading it inherits the visibility of the content it belongs to.',tradeoff:'Re-encoding costs CPU on every upload, but location metadata never reaches other users and private storage can stay private.',contribution:'I implemented the media pipeline and its access rules.',evidence:'api/src/media-store.ts · mobile/src/mock/server/media-access.ts'},
+      {title:'Put every change on real phones the same day',summary:'Publish over the air, then verify what was actually published.',implementation:'Front-end changes go to an EAS Update preview channel after lint, type checks and Node test suites covering the rule engine, privacy regressions, messaging, shops and group pre-orders. Each publication is checked against the remote manifest for iOS and Android and recorded with its update group and commit.',tradeoff:'Over-the-air updates only cover JavaScript. Native dependency or SDK changes need a new build, so runtime compatibility is tracked explicitly.',contribution:'I set up the preview channel and the checks around it.',evidence:'docs/EAS-PREVIEW.md · scripts/*.test.ts'},
+    ],
+  },
 ];
+const order = ['guardsync','auli','voice-learning','stride'];
+const meta = {
+  guardsync:{
+    tagline:'Incident reporting and response across a public web form, a management dashboard and a staff mobile app.',
+    period:'2025 — Present',status:'Mobile in final closed testing',platforms:'Web · iOS · Android',
+    chips:['Next.js','React Native','FastAPI','PostgreSQL','FCM'],
+    highlights:['Built the public reporting flow, the management dashboard and the staff mobile app independently.','Push notifications open the right incident whether the app is closed, backgrounded or still signing in.','Device registration is scoped to a staff member’s group and verified on the server.'],
+  },
+  auli:{
+    tagline:'A Chinese-language community app for Canberra: neighbourhood posts, events, carpools, local shops and messaging in one place.',
+    period:'2026 — Present',status:'In development · preview builds',platforms:'iOS · Android',
+    chips:['Expo','React Native','TypeScript','Zod','Fastify','EAS Update'],
+    highlights:['One typed contract shared by the app, an in-app rule engine and a pilot HTTP server.','Event sign-ups and carpool seats are confirmed inside a single locked transaction.','Every change reaches test phones over the air through an EAS Update preview channel.'],
+  },
+  'voice-learning':{
+    tagline:'A voice learning product: a realtime Python agent, a learner dashboard and an admin console that publishes the agent’s configuration.',
+    period:'2025 — Present',status:'Independent full-stack build',platforms:'Voice device · Web',
+    chips:['Python','LiveKit Agents','STT / LLM / TTS','Next.js','Supabase'],
+    highlights:['Realtime speech pipeline on LiveKit: VAD, STT, LLM with tools, then TTS.','Listening, pronunciation, role-play and quick-fire activities, each with its own state.','Draft, compare and publish agent configuration with version-conflict checks.'],
+  },
+  stride:{
+    tagline:'A shared-mobility app with map discovery, vehicle controls and a Stripe wallet.',
+    period:'2025 — 2026',status:'Project paused',platforms:'iOS · Android',
+    chips:['React Native','FastAPI','PostGIS','Stripe','Mapbox'],
+    highlights:['A layered map of vehicles, stops and parking that stays usable when one data source fails.','Stripe SetupIntents for saved cards and PaymentIntents for wallet top-ups.','Ride ownership, billing rules and the vehicle TCP protocol live on the server.'],
+  },
+};
+export const projects = order.map((id,i)=>({...raw.find(p=>p.id===id),...meta[id],number:String(i+1).padStart(2,'0'),next:order[(i+1)%order.length]}));
 export const projectById = Object.fromEntries(projects.map(p=>[p.id,p]));
